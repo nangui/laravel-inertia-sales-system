@@ -13,7 +13,7 @@ class ContactsController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Contacts/Index', [
+/*        return Inertia::render('Contacts/Index', [
             'filters' => Request::all('search', 'trashed'),
             'contacts' => Auth::user()->account->contacts()
                 ->with('organization')
@@ -29,7 +29,7 @@ class ContactsController extends Controller
                     'deleted_at' => $contact->deleted_at,
                     'organization' => $contact->organization ? $contact->organization->only('name') : null,
                 ]),
-        ]);
+        ]);*/
     }
 
     public function create()

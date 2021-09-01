@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -15,6 +16,7 @@ class User extends Authenticatable
     use SoftDeletes;
 
     protected $casts = [
+        'is_admin' => 'boolean',
         'owner' => 'boolean',
         'email_verified_at' => 'datetime',
     ];
@@ -22,11 +24,6 @@ class User extends Authenticatable
     public function resolveRouteBinding($value, $field = null)
     {
         return $this->where($field ?? 'id', $value)->withTrashed()->firstOrFail();
-    }
-
-    public function account()
-    {
-        return $this->belongsTo(Account::class);
     }
 
     public function getNameAttribute()
@@ -41,7 +38,7 @@ class User extends Authenticatable
 
     public function isDemoUser()
     {
-        return $this->email === 'johndoe@example.com';
+        return $this->email === 'admin@sms.com';
     }
 
     public function scopeOrderByName($query)
@@ -52,8 +49,9 @@ class User extends Authenticatable
     public function scopeWhereRole($query, $role)
     {
         switch ($role) {
-            case 'user': return $query->where('owner', false);
+            case 'admin': return $query->where('is_admin', true);
             case 'owner': return $query->where('owner', true);
+            default: return $query->where('is_admin', false) && $query->where('owner', false);
         }
     }
 
@@ -65,8 +63,6 @@ class User extends Authenticatable
                     ->orWhere('last_name', 'like', '%'.$search.'%')
                     ->orWhere('email', 'like', '%'.$search.'%');
             });
-        })->when($filters['role'] ?? null, function ($query, $role) {
-            $query->whereRole($role);
         })->when($filters['trashed'] ?? null, function ($query, $trashed) {
             if ($trashed === 'with') {
                 $query->withTrashed();
@@ -74,5 +70,10 @@ class User extends Authenticatable
                 $query->onlyTrashed();
             }
         });
+    }
+
+    public function sales(): HasMany
+    {
+        return $this->hasMany(Sale::class);
     }
 }
