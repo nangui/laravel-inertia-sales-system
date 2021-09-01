@@ -7,6 +7,7 @@ use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\InventoriesController;
 use App\Http\Controllers\OrganizationsController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ProductTypesController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ServicesController;
@@ -61,6 +62,12 @@ Route::delete('users/{user}', [UsersController::class, 'destroy'])
 Route::put('users/{user}/restore', [UsersController::class, 'restore'])
     ->name('users.restore')
     ->middleware('auth');
+
+// Product Types
+
+Route::get('product-types', [ProductTypesController::class, 'index'])
+  ->name('product-types')
+  ->middleware('auth');
 
 // Products
 Route::get('products', [ProductsController::class, 'index'])

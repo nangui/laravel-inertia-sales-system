@@ -18,6 +18,7 @@ class CreateProductTypesTable extends Migration
             $table->string('code')->unique();
             $table->string('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

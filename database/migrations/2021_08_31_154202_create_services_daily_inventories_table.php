@@ -18,6 +18,7 @@ class CreateServicesDailyInventoriesTable extends Migration
             $table->foreignId('daily_inventory_id');
             $table->foreignId('service_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

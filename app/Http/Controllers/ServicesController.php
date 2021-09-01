@@ -3,20 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class ServicesController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
       return Inertia::render('Services/Index', [
         'filters' => Request::all('search', 'trashed'),
-        'services' => Service::paginate(10)
-            ->withQueryString()
-           ->through(fn ($service) => [
+        'services' => Service::orderByCode()
+          ->filter(Request::only('search', 'trashed'))
+          ->paginate(10)
+          ->withQueryString()
+          ->through(fn ($service) => [
                'id' => $service->id,
                'code' => $service->code,
                'description' => $service->description
@@ -24,12 +27,12 @@ class ServicesController extends Controller
       ]);
     }
 
-  public function create()
+  public function create(): Response
   {
     return Inertia::render('Services/Create');
   }
 
-  public function store()
+  public function store(): RedirectResponse
   {
     Service::create(
       Request::validate([
@@ -41,7 +44,7 @@ class ServicesController extends Controller
     return Redirect::route('services')->with('success', 'Service créé.');
   }
 
-  public function edit(Service $service)
+  public function edit(Service $service): Response
   {
     return Inertia::render('Services/Edit', [
       'service' => [
@@ -52,7 +55,7 @@ class ServicesController extends Controller
     ]);
   }
 
-  public function update(Service $service)
+  public function update(Service $service): RedirectResponse
   {
     $service->update(
       Request::validate([
@@ -64,14 +67,14 @@ class ServicesController extends Controller
     return Redirect::back()->with('success', 'Service mis à jour.');
   }
 
-  public function destroy(Service $service)
+  public function destroy(Service $service): RedirectResponse
   {
     $service->delete();
 
     return Redirect::route('services')->with('success', 'Service archivé.');
   }
 
-  public function restore(Service $service)
+  public function restore(Service $service): RedirectResponse
   {
     $service->restore();
 

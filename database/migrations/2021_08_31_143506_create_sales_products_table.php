@@ -19,6 +19,7 @@ class CreateSalesProductsTable extends Migration
             $table->foreignId('sale_id');
             $table->integer('quantity');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

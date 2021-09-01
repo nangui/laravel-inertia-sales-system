@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Service extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = ['code', 'description'];
 
@@ -21,7 +23,8 @@ class Service extends Model
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->where(function ($query) use ($search) {
-                $query->where('code', 'like', '%'.$search.'%');
+                $query->where('code', 'like', '%'.$search.'%')
+                  ->orWhere('description', 'like', '%'.$search.'%');
             });
         })->when($filters['trashed'] ?? null, function ($query, $trashed) {
             if ($trashed === 'with') {

@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->double('unit_price');
             $table->string('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

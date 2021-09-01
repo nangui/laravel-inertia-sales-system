@@ -18,6 +18,7 @@ class CreateSalesTable extends Migration
             $table->foreignId('user_id');
             $table->double('total_amount');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
