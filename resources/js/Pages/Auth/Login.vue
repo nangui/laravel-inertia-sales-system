@@ -7,7 +7,7 @@
           <h1 class="text-center font-bold text-3xl">Content de te revoir!</h1>
           <div class="mx-auto mt-6 w-24 border-b-2" />
           <text-input v-model="form.email" :error="form.errors.email" class="mt-10" label="Email" type="email" autofocus autocapitalize="off" />
-          <text-input v-model="form.password" :error="form.errors.password" class="mt-6" label="Password" type="password" />
+          <text-input v-model="form.password" :error="form.errors.password" class="mt-6" label="Mot de passe" type="password" />
           <label class="mt-6 select-none flex items-center" for="remember">
             <input id="remember" v-model="form.remember" class="mr-1" type="checkbox" />
             <span class="text-sm">Se souvenir de moi</span>

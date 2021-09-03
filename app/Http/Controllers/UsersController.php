@@ -17,8 +17,7 @@ class UsersController extends Controller
     {
         return Inertia::render('Users/Index', [
             'filters' => Request::all('search', 'role', 'trashed'),
-            'users' => Auth::user()->account->users()
-                ->orderByName()
+            'users' => User::orderByName()
                 ->filter(Request::only('search', 'role', 'trashed'))
                 ->get()
                 ->transform(fn ($user) => [
@@ -48,7 +47,7 @@ class UsersController extends Controller
             'photo' => ['nullable', 'image'],
         ]);
 
-        Auth::user()->account->users()->create([
+        User::create([
             'first_name' => Request::get('first_name'),
             'last_name' => Request::get('last_name'),
             'email' => Request::get('email'),
@@ -57,7 +56,7 @@ class UsersController extends Controller
             'photo_path' => Request::file('photo') ? Request::file('photo')->store('users') : null,
         ]);
 
-        return Redirect::route('users')->with('success', 'User created.');
+        return Redirect::route('users')->with('success', 'Utilisateur créé.');
     }
 
     public function edit(User $user)
@@ -100,7 +99,7 @@ class UsersController extends Controller
             $user->update(['password' => Request::get('password')]);
         }
 
-        return Redirect::back()->with('success', 'User updated.');
+        return Redirect::back()->with('success', 'Utilisateur mis à jour.');
     }
 
     public function destroy(User $user)
@@ -111,13 +110,13 @@ class UsersController extends Controller
 
         $user->delete();
 
-        return Redirect::back()->with('success', 'User deleted.');
+        return Redirect::back()->with('success', 'Utilisateur archivé.');
     }
 
     public function restore(User $user)
     {
         $user->restore();
 
-        return Redirect::back()->with('success', 'User restored.');
+        return Redirect::back()->with('success', 'Utilisateur restauré.');
     }
 }

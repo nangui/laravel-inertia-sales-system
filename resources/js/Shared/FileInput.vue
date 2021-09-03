@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="hidden">
     <label v-if="label" class="form-label">{{ label }}:</label>
     <div class="form-input p-0" :class="{ error: errors.length }">
       <input ref="file" type="file" :accept="accept" class="hidden" @change="change" />
       <div v-if="!value" class="p-2">
         <button type="button" class="px-4 py-1 bg-gray-500 hover:bg-gray-700 rounded-sm text-xs font-medium text-white" @click="browse">
-          Browse
+          Choisir
         </button>
       </div>
       <div v-else class="flex items-center justify-between p-2">
@@ -13,7 +13,7 @@
           {{ value.name }} <span class="text-gray-500 text-xs">({{ filesize(value.size) }})</span>
         </div>
         <button type="button" class="px-4 py-1 bg-gray-500 hover:bg-gray-700 rounded-sm text-xs font-medium text-white" @click="remove">
-          Remove
+          Effacer
         </button>
       </div>
     </div>

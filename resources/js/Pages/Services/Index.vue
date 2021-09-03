@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mb-8 font-bold text-3xl">Services</h1>
+    <h1 class="mb-8 font-bold text-3xl">Services <small class="text-gray-500">({{ services.total }} éléments)</small></h1>
     <div class="mb-6 flex justify-between items-center">
       <search-filter v-model="form.search" class="w-full max-w-md mr-4" @reset="reset">
         <label class="block text-gray-700">Mis en corbeille:</label>

@@ -15,6 +15,7 @@
         "@inertiajs/inertia-vue": "^0.6.2",
         "@inertiajs/progress": "^0.2.4",
         "autoprefixer": "^10.2.4",
+        "chart.js": "^3.5.1",
         "eslint": "^6.8.0",
         "eslint-plugin-vue": "^7.5.0",
         "laravel-mix": "^6.0.6",
@@ -26,6 +27,8 @@
         "postcss-nesting": "^7.0.1",
         "tailwindcss": "^2.0.3",
         "vue": "^2.6.11",
+        "vue-chartjs": "^3.5.1",
+        "vue-js-counter": "^1.0.3",
         "vue-loader": "^15.9.6",
         "vue-meta": "^2.3.1",
         "vue-template-compiler": "^2.6.12"

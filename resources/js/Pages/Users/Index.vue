@@ -12,8 +12,8 @@
         <label class="mt-4 block text-gray-700">Trashed:</label>
         <select v-model="form.trashed" class="mt-1 w-full form-select">
           <option :value="null" />
-          <option value="with">With Trashed</option>
-          <option value="only">Only Trashed</option>
+          <option value="with">Avec mis en corbeille</option>
+          <option value="only">Seulement mis en corbeille</option>
         </select>
       </search-filter>
       <inertia-link class="btn-indigo" :href="route('users.create')">
@@ -24,7 +24,7 @@
     <div class="bg-white rounded-md shadow overflow-x-auto">
       <table class="w-full whitespace-nowrap">
         <tr class="text-left font-bold">
-          <th class="px-6 pt-6 pb-4">Name</th>
+          <th class="px-6 pt-6 pb-4">Nom</th>
           <th class="px-6 pt-6 pb-4">Email</th>
           <th class="px-6 pt-6 pb-4" colspan="2">Role</th>
         </tr>
@@ -53,7 +53,7 @@
           </td>
         </tr>
         <tr v-if="users.length === 0">
-          <td class="border-t px-6 py-4" colspan="4">No users found.</td>
+          <td class="border-t px-6 py-4" colspan="4">Aucun utilisateur trouvé!</td>
         </tr>
       </table>
     </div>

@@ -17,7 +17,7 @@ class ServicesController extends Controller
         'filters' => Request::all('search', 'trashed'),
         'services' => Service::orderByCode()
           ->filter(Request::only('search', 'trashed'))
-          ->paginate(10)
+          ->paginate(8)
           ->withQueryString()
           ->through(fn ($service) => [
                'id' => $service->id,
@@ -36,7 +36,7 @@ class ServicesController extends Controller
   {
     Service::create(
       Request::validate([
-        'code' => ['required', 'max:10'],
+        'code' => ['required', 'max:30'],
         'description' => ['required', 'max:50'],
       ])
     );

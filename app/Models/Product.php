@@ -6,10 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property mixed $id
+ * @property string $code
+ * @property integer $product_type_id
+ * @property string $name
+ * @property integer $unit_price
+ * @property string $description
+ * @property mixed $deleted_at
+ */
 class Product extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'product_type_id',
@@ -19,7 +30,7 @@ class Product extends Model
         'description'
     ];
 
-    public function productType(): BelongsTo
+    public function type(): BelongsTo
     {
         return $this->belongsTo(ProductType::class);
     }
@@ -42,7 +53,7 @@ class Product extends Model
                     ->orWhere('name', 'like', '%'.$search.'%')
                     ->orWhere('unit_price', 'like', '%'.$search.'%')
                     ->orWhere('description', 'like', '%'.$search.'%')
-                    ->orWhereHas('productType', function ($query) use ($search) {
+                    ->orWhereHas('type', function ($query) use ($search) {
                         $query->where('code', 'like', '%'.$search.'%');
                     });
             });

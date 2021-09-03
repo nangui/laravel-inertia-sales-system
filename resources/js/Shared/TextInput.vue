@@ -20,7 +20,7 @@ export default {
       type: String,
       default: 'text',
     },
-    value: String,
+    value: [Number, String],
     label: String,
     error: String,
   },
