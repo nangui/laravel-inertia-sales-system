@@ -11,11 +11,10 @@
     <div class="bg-white rounded-md shadow overflow-hidden max-w-3xl">
       <form @submit.prevent="update">
         <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
-          <text-input v-model="form.code" :error="form.errors.code" class="pr-6 pb-8 w-full lg:w-1/2" label="Code" />
+          <text-input v-model="form.label" :error="form.errors.label" class="pr-6 pb-8 w-full lg:w-1/2" label="Libellé" />
           <text-input v-model="form.name" :error="form.errors.name" class="pr-6 pb-8 w-full lg:w-1/2" label="Nom" />
           <select-input v-model="form.product_type_id" :error="form.errors.product_type_id" class="pr-6 pb-8 w-full lg:w-1/2" label="Type">
-            <option :value="null" />
-            <option v-for="type in types" :key="type.id" :value="type.id">{{ type.description }}</option>
+            <option v-for="type in types" :key="type.id" :value="type.id">{{ type.label }}</option>
           </select-input>
           <text-input v-model="form.unit_price" type="number" :error="form.errors.unit_price" class="pr-6 pb-8 w-full lg:w-1/2" label="Prix Unitaire" />
           <textarea-input v-model="form.description" :error="form.errors.description" class="pr-6 pb-8 w-full" label="Description" />
@@ -59,11 +58,12 @@ export default {
   data() {
     return {
       form: this.$inertia.form({
-        code: this.product.code,
+        label: this.product.label,
         name: this.product.name,
         product_type_id: this.product.product_type_id,
         unit_price: this.product.unit_price,
         description: this.product.description,
+        user_id: this.$inertia.page.props.auth.user.id,
       }),
     }
   },

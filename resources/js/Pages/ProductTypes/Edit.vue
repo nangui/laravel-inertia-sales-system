@@ -3,7 +3,7 @@
     <h1 class="mb-8 font-bold text-3xl">
       <inertia-link class="text-indigo-400 hover:text-indigo-600" :href="route('product-types')">Type de produits</inertia-link>
       <span class="text-indigo-400 font-medium">/</span>
-      {{ form.code }}
+      {{ form.label }}
     </h1>
     <trashed-message v-if="type.deleted_at" class="mb-6" @restore="restore">
       Ce type a été supprimé.
@@ -11,8 +11,10 @@
     <div class="bg-white rounded-md shadow overflow-hidden max-w-3xl">
       <form @submit.prevent="update">
         <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
-          <text-input v-model="form.code" :error="form.errors.code" class="pr-6 pb-8 w-full lg:w-1/2" label="Code" />
-          <textarea-input v-model="form.description" :error="form.errors.description" class="pr-6 pb-8 w-full lg:w-1/2" label="Description" />
+          <text-input v-model="form.label" :error="form.errors.label" class="pr-6 pb-8 w-full lg:w-1/2" label="Label" />
+          <select-input v-model="form.product_type_id" :error="form.errors.product_type_id" class="pr-6 pb-8 w-full lg:w-1/2" label="Parent">
+            <option v-for="t in types" :key="t.id" :value="t.id">{{ t.label }}</option>
+          </select-input>
         </div>
         <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex items-center">
           <button v-if="!type.deleted_at" class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Supprimer</button>
@@ -26,32 +28,33 @@
 <script>
 import Layout from '@/Shared/Layout'
 import TextInput from '@/Shared/TextInput'
-import TextareaInput from '@/Shared/TextareaInput'
+import SelectInput from '@/Shared/SelectInput'
 import LoadingButton from '@/Shared/LoadingButton'
 import TrashedMessage from '@/Shared/TrashedMessage'
 
 export default {
   metaInfo() {
     return {
-      title: `${this.form.code} - ${this.form.description}`,
+      title: `${this.form.label}`,
     }
   },
   components: {
     LoadingButton,
-    TextareaInput,
     TextInput,
+    SelectInput,
     TrashedMessage,
   },
   layout: Layout,
   props: {
     type: Object,
+    types: Array,
   },
   remember: 'form',
   data() {
     return {
       form: this.$inertia.form({
-        code: this.type.code,
-        description: this.type.description,
+        label: this.type.label,
+        product_type_id: this.type.parent.id,
       }),
     }
   },

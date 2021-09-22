@@ -18,7 +18,7 @@
     <div class="bg-white rounded-md shadow overflow-x-auto">
       <table class="w-full whitespace-nowrap">
         <tr class="text-left font-bold">
-          <th class="px-6 pt-6 pb-4">Code</th>
+          <th class="px-6 pt-6 pb-4">Libellé</th>
           <th class="px-6 pt-6 pb-4">Nom</th>
           <th class="px-6 pt-6 pb-4">Prix</th>
           <th class="px-6 pt-6 pb-4">Type</th>
@@ -26,7 +26,7 @@
         <tr v-for="product in products.data" :key="product.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
           <td class="border-t">
             <inertia-link :href="route('products.edit', product.id)" class="px-6 py-4 flex items-center focus:text-indigo-500">
-              {{ product.code }}
+              {{ product.label }}
               <icon v-if="product.deleted_at" class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2" name="trash" />
             </inertia-link>
           </td>
@@ -85,6 +85,7 @@ export default {
     products: Object,
   },
   data() {
+    console.log(this.products.data)
     return {
       form: {
         search: this.filters.search,

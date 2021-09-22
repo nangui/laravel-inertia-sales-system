@@ -21,23 +21,28 @@ class ProductTypesController extends Controller
             ->withQueryString()
             ->through(fn ($type) => [
                 'id' => $type->id,
-                'code' => $type->code,
-                'description' => $type->description
+                'label' => $type->label,
+                'parent' => $type->product_type_id ? ProductType::find($type->product_type_id)->label : null,
             ]),
       ]);
     }
 
   public function create(): Response
   {
-    return Inertia::render('ProductTypes/Create');
+    return Inertia::render('ProductTypes/Create', [
+      'types' => ProductType::orderByCode()->get()->map(fn ($type) => [
+        'id' => $type->id,
+        'label' => $type->label,
+      ]),
+    ]);
   }
 
   public function store(): RedirectResponse
   {
     ProductType::create(
       Request::validate([
-        'code' => ['required', 'max:30'],
-        'description' => ['required', 'max:50'],
+        'label' => ['required', 'max:30'],
+        'product_type_id' => ['nullable', 'exists:product_types,id'],
       ])
     );
 
@@ -49,9 +54,10 @@ class ProductTypesController extends Controller
     return Inertia::render('ProductTypes/Edit', [
       'type' => [
         'id' => $productType->id,
-        'code' => $productType->code,
-        'description' => $productType->description,
+        'label' => $productType->label,
+        'parent' => $productType->product_type_id ? ProductType::find($productType->product_type_id) : null,
       ],
+      'types' => ProductType::all(),
     ]);
   }
 
@@ -59,8 +65,8 @@ class ProductTypesController extends Controller
   {
     $productType->update(
       Request::validate([
-        'code' => ['required', 'max:50'],
-        'description' => ['required', 'max:50'],
+        'label' => ['required', 'max:50'],
+        'product_type_id' => ['exists:product_types,id'],
       ])
     );
 

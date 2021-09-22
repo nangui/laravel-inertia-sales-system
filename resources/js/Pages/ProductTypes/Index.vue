@@ -19,18 +19,18 @@
       <table class="w-full whitespace-nowrap">
         <tr class="text-left font-bold">
           <th class="px-6 pt-6 pb-4">Code</th>
-          <th class="px-6 pt-6 pb-4">Description</th>
+          <th class="px-6 pt-6 pb-4">Parent</th>
         </tr>
         <tr v-for="type in types.data" :key="type.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
           <td class="border-t">
             <inertia-link :href="route('product-types.edit', type.id)" class="px-6 py-4 flex items-center focus:text-indigo-500">
-              {{ type.code }}
+              {{ type.label }}
               <icon v-if="type.deleted_at" class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2" name="trash" />
             </inertia-link>
           </td>
           <td class="border-t">
             <inertia-link :href="route('product-types.edit', type.id)" class="px-6 py-4 flex items-center focus:text-indigo-500">
-              {{ type.description }}
+              {{ type.parent }}
               <icon v-if="type.deleted_at" class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2" name="trash" />
             </inertia-link>
           </td>

@@ -13,7 +13,10 @@ class Sale extends Model
 
     protected $fillable = [
         'user_id',
-        'total_amount'
+        'amount',
+        'date',
+        'type',
+        'observation'
     ];
 
     public function products(): BelongsToMany

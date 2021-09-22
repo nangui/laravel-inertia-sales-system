@@ -16,7 +16,10 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->double('total_amount');
+            $table->double('amount');
+            $table->dateTime('date');
+            $table->enum('type', ['sale', 'transaction']);
+            $table->tinyText('observation')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

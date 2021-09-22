@@ -20,8 +20,8 @@ class ProductsController extends Controller
 
       return Inertia::render('Products/Index', [
         'filters' => Request::all('search', 'trashed'),
-        'products' => Product::orderBy('code')
-          ->with('type')
+        'products' => Product::orderBy('label')
+          ->with('productType')
           ->orderBy('name')
           ->orderBy('unit_price')
           ->filter(Request::only('search', 'trashed'))
@@ -29,7 +29,7 @@ class ProductsController extends Controller
           ->withQueryString()
           ->through(fn ($product) => [
             'id' => $product->id,
-            'code' => $product->code,
+            'label' => $product->label,
             'name' => $product->name,
             'unit_price' => $product->unit_price,
             'deleted_at' => $product->deleted_at,
@@ -41,10 +41,10 @@ class ProductsController extends Controller
     public function create(): Response
     {
       return Inertia::render('Products/Create', [
-        'types' => ProductType::orderBy('code')
+        'types' => ProductType::orderBy('label')
           ->get()
           ->map
-          ->only('id', 'description'),
+          ->only('id', 'label'),
       ]);
     }
 
@@ -52,11 +52,12 @@ class ProductsController extends Controller
     {
       Product::create(
         Request::validate([
-          'code' => ['required', 'max:30'],
+          'label' => ['required', 'max:30'],
           'name' => ['unique:products,name', 'max:100'],
           'product_type_id' => ['required', 'exists:product_types,id'],
           'unit_price' => ['numeric', 'min:100'],
-          'description' => ['required']
+          'description' => ['required'],
+          'user_id' => ['required', 'exists:users,id'],
         ])
       );
 
@@ -68,36 +69,39 @@ class ProductsController extends Controller
       return Inertia::render('Products/Edit', [
         'product' => [
           'id' => $product->id,
-          'code' => $product->code,
+          'label' => $product->label,
           'product_type_id' => $product->product_type_id,
           'name' => $product->name,
           'unit_price' => $product->unit_price,
           'description' => $product->description,
+          'user_id' => $product->user_id,
           'deleted_at' => $product->deleted_at,
         ],
-        'types' => ProductType::orderBy('code')
+        'types' => ProductType::orderByCode()
           ->get()
           ->map
-          ->only('id', 'description'),
+          ->only('id', 'label'),
       ]);
     }
 
     public function update(Product $product): RedirectResponse
     {
       Request::validate([
-        'code' => ['required', 'max:30'],
+        'label' => ['required', 'max:30'],
         'name' => ['required', 'max:100'],
         'product_type_id' => ['required', 'exists:product_types,id'],
         'unit_price' => ['numeric', 'min:100'],
-        'description' => ['required']
+        'description' => ['required'],
+        'user_id' => ['required', 'exists:users,id'],
       ]);
 
       $product->update([
-        'code' => Request::get('code'),
+        'label' => Request::get('label'),
         'name' => Request::get('name'),
         'product_type_id' => Request::get('product_type_id'),
         'unit_price' => Request::get('unit_price'),
         'description' => Request::get('description'),
+        'user_id' => Request::get('user_id'),
       ]);
 
       return Redirect::back()->with('success', 'Produit mis à jour.');

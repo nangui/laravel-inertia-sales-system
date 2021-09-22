@@ -1,16 +1,12 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
-use App\Http\Controllers\InventoriesController;
-use App\Http\Controllers\OrganizationsController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductTypesController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\SalesController;
-use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -119,35 +115,6 @@ Route::put('products/{product}/restore', [ProductsController::class, 'restore'])
   ->name('products.restore')
   ->middleware('auth');
 
-// Services
-Route::get('services', [ServicesController::class, 'index'])
-    ->name('services')
-    ->middleware('auth');
-
-Route::get('services/create', [ServicesController::class, 'create'])
-    ->name('services.create')
-    ->middleware('auth');
-
-Route::post('services', [ServicesController::class, 'store'])
-    ->name('services.store')
-    ->middleware('auth');
-
-Route::get('services/{service}/edit', [ServicesController::class, 'edit'])
-    ->name('services.edit')
-    ->middleware('auth');
-
-Route::put('services/{service}', [ServicesController::class, 'update'])
-    ->name('services.update')
-    ->middleware('auth');
-
-Route::delete('services/{service}', [ServicesController::class, 'destroy'])
-    ->name('services.destroy')
-    ->middleware('auth');
-
-Route::put('services/{service}/restore', [ServicesController::class, 'restore'])
-    ->name('services.restore')
-    ->middleware('auth');
-
 // Sales
 Route::get('sales', [SalesController::class, 'index'])
   ->name('sales')
@@ -175,35 +142,6 @@ Route::delete('sales/{sale}', [SalesController::class, 'destroy'])
 
 Route::put('sales/{sale}/restore', [SalesController::class, 'restore'])
   ->name('sales.restore')
-  ->middleware('auth');
-
-// Inventories
-Route::get('inventories', [InventoriesController::class, 'index'])
-  ->name('inventories')
-  ->middleware('auth');
-
-Route::get('inventories/create', [InventoriesController::class, 'create'])
-  ->name('inventories.create')
-  ->middleware('auth');
-
-Route::post('inventories', [InventoriesController::class, 'store'])
-  ->name('inventories.store')
-  ->middleware('auth');
-
-Route::get('inventories/{inventory}/edit', [InventoriesController::class, 'edit'])
-  ->name('inventories.edit')
-  ->middleware('auth');
-
-Route::put('inventories/{inventory}', [InventoriesController::class, 'update'])
-  ->name('inventories.update')
-  ->middleware('auth');
-
-Route::delete('inventories/{inventory}', [InventoriesController::class, 'destroy'])
-  ->name('inventories.destroy')
-  ->middleware('auth');
-
-Route::put('inventories/{inventory}/restore', [InventoriesController::class, 'restore'])
-  ->name('inventories.restore')
   ->middleware('auth');
 
 // Reports

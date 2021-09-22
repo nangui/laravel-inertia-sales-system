@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Coulibaly',
             'email' => 'admin@sms.com',
             'is_admin' => true,
-            'owner' => false,
+            'is_owner' => false,
         ]);
 
 /*        $organizations = Organization::factory(100)

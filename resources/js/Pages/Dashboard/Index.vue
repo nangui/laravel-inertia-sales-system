@@ -2,7 +2,6 @@
   <div>
     <h1 class="mb-8 font-bold text-3xl">Tableau de bord</h1>
     <div class="lg:flex space-y-4 lg:space-y-0 lg:space-x-4 mb-4">
-      <card title="Services" count="12" link-url="services" />
       <card title="Types de produits" count="96" link-url="product-types" />
       <card title="Produits" count="1324" link-url="products" />
     </div>
