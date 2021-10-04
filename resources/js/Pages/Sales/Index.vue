@@ -12,7 +12,7 @@
       </search-filter>
       <inertia-link :href="route('sales.create')" class="btn-indigo">
         <span>Enregistrer</span>
-        <span class="hidden md:inline">une commande</span>
+        <span class="hidden md:inline">une vente</span>
       </inertia-link>
     </div>
     <div class="bg-white rounded-md shadow overflow-x-auto">
