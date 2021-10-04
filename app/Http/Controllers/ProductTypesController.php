@@ -42,7 +42,7 @@ class ProductTypesController extends Controller
     ProductType::create(
       Request::validate([
         'label' => ['required', 'max:30'],
-        'product_type_id' => ['nullable', 'exists:product_types,id'],
+        'product_type_id' => ['nullable'],
       ])
     );
 
