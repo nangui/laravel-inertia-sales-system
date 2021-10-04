@@ -29,7 +29,7 @@ import Layout from '@/Shared/Layout'
 import TextInput from '@/Shared/TextInput'
 import SelectInput from '@/Shared/SelectInput'
 import LoadingButton from '@/Shared/LoadingButton'
-import TextareaInput from '../../Shared/TextareaInput'
+import TextareaInput from '@/Shared/TextareaInput'
 
 export default {
   metaInfo: { title: 'Create Product' },

@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductTypesController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -147,6 +148,31 @@ Route::put('sales/{sale}/restore', [SalesController::class, 'restore'])
 // Reports
 Route::get('reports', [ReportsController::class, 'index'])
     ->name('reports')
+    ->middleware('auth');
+
+Route::get('settings', [SettingController::class, 'index'])
+    ->name('settings')
+    ->middleware('auth');
+
+
+    Route::get('settings/create', [SettingController::class, 'create'])
+    ->name('settings.create')
+    ->middleware('auth');
+  
+  Route::post('settings', [SettingController::class, 'store'])
+    ->name('settings.store')
+    ->middleware('auth');
+  
+  Route::get('settings/{setting}/edit', [SettingController::class, 'edit'])
+    ->name('settings.edit')
+    ->middleware('auth');
+  
+  Route::put('settings/{setting}', [SettingController::class, 'update'])
+    ->name('settings.update')
+    ->middleware('auth');
+  
+  Route::delete('settings/{setting}', [SettingController::class, 'destroy'])
+    ->name('settings.destroy')
     ->middleware('auth');
 
 // Images

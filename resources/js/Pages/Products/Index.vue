@@ -85,7 +85,6 @@ export default {
     products: Object,
   },
   data() {
-    console.log(this.products.data)
     return {
       form: {
         search: this.filters.search,
