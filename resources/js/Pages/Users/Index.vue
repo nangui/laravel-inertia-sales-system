@@ -6,8 +6,8 @@
         <label class="block text-gray-700">Role:</label>
         <select v-model="form.role" class="mt-1 w-full form-select">
           <option :value="null" />
-          <option value="user">User</option>
-          <option value="owner">Owner</option>
+          <option value="user">Utilisateur</option>
+          <option value="is_owner">Caissier</option>
         </select>
         <label class="mt-4 block text-gray-700">Trashed:</label>
         <select v-model="form.trashed" class="mt-1 w-full form-select">
@@ -17,8 +17,8 @@
         </select>
       </search-filter>
       <inertia-link class="btn-indigo" :href="route('users.create')">
-        <span>Create</span>
-        <span class="hidden md:inline">User</span>
+        <span>Créer</span>
+        <span class="hidden md:inline">Utilisateur</span>
       </inertia-link>
     </div>
     <div class="bg-white rounded-md shadow overflow-x-auto">
@@ -43,7 +43,7 @@
           </td>
           <td class="border-t">
             <inertia-link class="px-6 py-4 flex items-center" :href="route('users.edit', user.id)" tabindex="-1">
-              {{ user.owner ? 'Owner' : 'User' }}
+              {{ user.is_owner ? 'Propriétaire' : 'Caissier' }}
             </inertia-link>
           </td>
           <td class="border-t w-px">

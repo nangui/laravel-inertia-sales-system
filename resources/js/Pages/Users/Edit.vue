@@ -18,7 +18,7 @@
           <text-input v-model="form.last_name" :error="form.errors.last_name" class="pr-6 pb-8 w-full lg:w-1/2" label="Nom" />
           <text-input v-model="form.email" :error="form.errors.email" class="pr-6 pb-8 w-full lg:w-1/2" label="Email" />
           <text-input v-model="form.password" :error="form.errors.password" class="pr-6 pb-8 w-full lg:w-1/2" type="password" autocomplete="new-password" label="Mot de passe" />
-          <select-input v-model="form.owner" :error="form.errors.owner" class="pr-6 pb-8 w-full lg:w-1/2" label="Propriétaire">
+          <select-input v-model="form.is_owner" :error="form.errors.is_owner" class="pr-6 pb-8 w-full lg:w-1/2" label="Propriétaire">
             <option :value="true">Oui</option>
             <option :value="false">Non</option>
           </select-input>
@@ -67,7 +67,7 @@ export default {
         last_name: this.user.last_name,
         email: this.user.email,
         password: null,
-        owner: this.user.owner,
+        is_owner: this.user.is_owner,
         photo: null,
       }),
     }

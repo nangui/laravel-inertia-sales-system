@@ -23,7 +23,7 @@ class UsersController extends Controller
                     'id' => $user->id,
                     'name' => $user->name,
                     'email' => $user->email,
-                    'owner' => $user->owner,
+                    'is_owner' => $user->is_owner,
                     'photo' => $user->photo_path ? URL::route('image', ['path' => $user->photo_path, 'w' => 40, 'h' => 40, 'fit' => 'crop']) : null,
                     'deleted_at' => $user->deleted_at,
                 ]),
@@ -42,7 +42,7 @@ class UsersController extends Controller
             'last_name' => ['required', 'max:50'],
             'email' => ['required', 'max:50', 'email', Rule::unique('users')],
             'password' => ['nullable'],
-            'owner' => ['required', 'boolean'],
+            'is_owner' => ['required', 'boolean'],
             'photo' => ['nullable', 'image'],
         ]);
 
@@ -51,7 +51,7 @@ class UsersController extends Controller
             'last_name' => Request::get('last_name'),
             'email' => Request::get('email'),
             'password' => Request::get('password'),
-            'owner' => Request::get('owner'),
+            'is_owner' => Request::get('is_owner'),
             'photo_path' => Request::file('photo') ? Request::file('photo')->store('users') : null,
         ]);
 
@@ -66,7 +66,7 @@ class UsersController extends Controller
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
                 'email' => $user->email,
-                'owner' => $user->owner,
+                'is_owner' => $user->is_owner,
                 'photo' => $user->photo_path ? URL::route('image', ['path' => $user->photo_path, 'w' => 60, 'h' => 60, 'fit' => 'crop']) : null,
                 'deleted_at' => $user->deleted_at,
             ],
@@ -84,7 +84,7 @@ class UsersController extends Controller
             'last_name' => ['required', 'max:50'],
             'email' => ['required', 'max:50', 'email', Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable'],
-            'owner' => ['required', 'boolean'],
+            'is_owner' => ['required', 'boolean'],
             'photo' => ['nullable', 'image'],
         ]);
 
