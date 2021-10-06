@@ -18,8 +18,6 @@ class SalesController extends Controller
 
         $sales = Sale::orderBy('created_at', 'desc')
             ->with('user')
-            ->orderBy('first_name')
-            ->orderBy('last_name')
             ->filter(Request::only('search', 'trashed'))
             ->paginate(8)
             ->withQueryString()
@@ -46,7 +44,17 @@ class SalesController extends Controller
 
     public function store(Request $request)
     {
-        
+        Sale::create(
+            Request::validate([
+                'amount' => 'required|numeric',
+                'date' => 'required|date',
+                'type' => 'required|in:sale,transaction',
+                'observation' => 'nullable',
+                'user_id' => 'required|exists:users,id',
+            ])
+        );
+
+        return redirect()->route('sales')->with('success', 'Vente enregistrée.');
     }
 
     public function edit(Sale $sale)
