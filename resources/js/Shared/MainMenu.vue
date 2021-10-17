@@ -24,7 +24,7 @@
         <div :class="isUrl('sales') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Ventes</div>
       </inertia-link>
     </div>
-    <div class="mb-4">
+    <div class="mb-4" v-if="$page.props.auth.user.is_owner">
       <inertia-link class="flex items-center group py-3" :href="route('settings')">
         <icon name="printer" class="w-4 h-4 mr-2" :class="isUrl('settings') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
         <div :class="isUrl('settings') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Parametres</div>

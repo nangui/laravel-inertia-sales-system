@@ -36,7 +36,7 @@ class UsersController extends Controller
     }
 
     public function store()
-    {
+    {        
         Request::validate([
             'first_name' => ['required', 'max:50'],
             'last_name' => ['required', 'max:50'],

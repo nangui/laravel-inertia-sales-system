@@ -21,7 +21,7 @@
           <th class="px-6 pt-6 pb-4">#ID</th>
           <th class="px-6 pt-6 pb-4">Montant</th>
           <th class="px-6 pt-6 pb-4">Date</th>
-          <th class="px-6 pt-6 pb-4">Type paiement</th>
+          <th class="px-6 pt-6 pb-4">Action</th>
           <th class="px-6 pt-6 pb-4">Utilisateur</th>
         </tr>
         <tr v-for="sale in sales.data" :key="sale.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
@@ -45,7 +45,7 @@
           </td>
           <td class="border-t">
             <inertia-link :href="route('sales.edit', sale.id)" class="px-6 py-4 flex items-center focus:text-indigo-500">
-              {{ sale.type }}
+              {{ sale.type === 'sale' ? 'Vente' : 'Transaction' }}
               <icon v-if="sale.deleted_at" class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2" name="trash" />
             </inertia-link>
           </td>
